@@ -17,4 +17,11 @@ class CourseFactory extends Factory
             'description' => $this->faker->paragraph,
         ];
     }
+
+    public function relased(Carbon $date = null): self
+    {
+        return $this->state(
+            fn($attributes) => ['released_at' => $date ?? Carbon::now()]
+        );
+    }
 }

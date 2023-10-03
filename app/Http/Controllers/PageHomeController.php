@@ -9,7 +9,7 @@ class PageHomeController extends Controller
     public function __invoke()
     {
         $courses = Course::query()
-            ->whereNotNull('released_at')
+            ->released()
             ->orderByDesc('released_at')
             ->get();
 
