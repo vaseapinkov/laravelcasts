@@ -16,5 +16,4 @@ test('only returns released courses for released scope', function () {
         ->toHaveCount(1)
         ->first()->id->toEqual(1);
 
-
 });
