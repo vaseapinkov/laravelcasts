@@ -12,7 +12,7 @@ uses(RefreshDatabase::class);
 
 it('con not be accessed by a guest', function () {
     // Act and Assert
-    get(route('dashboard'))
+    get(route('pages.dashboard'))
         ->assertRedirect(route('login'));
 });
 
@@ -29,7 +29,7 @@ it('list purchased courses', function () {
 
     // Act and Assert
     $this->actingAs($user);
-    get(route('dashboard'))
+    get(route('pages.dashboard'))
         ->assertOk()
         ->assertSeeText([
             'Course A',
@@ -44,7 +44,7 @@ it('doe not see other courses', function () {
 
     // Act & Assert
     $this->actingAs($user);
-    get(route('dashboard'))
+    get(route('pages.dashboard'))
         ->assertOk()
         ->assertDontSeeText($course->title);
 });
@@ -60,7 +60,7 @@ it('show last purchased courses first', function () {
 
     // Act & Assert
     $this->actingAs($user);
-    get(route('dashboard'))
+    get(route('pages.dashboard'))
         ->assertOk()
         ->assertSeeInOrder([
             $lastPurchasedCourse->title,
@@ -75,7 +75,7 @@ it('includes link to product video', function () {
         ->create();
 
     $this->actingAs($user);
-    get(route('dashboard'))
+    get(route('pages.dashboard'))
         ->assertOk()
         ->assertSeeText('Watch Video')
         ->assertSee(route('pages.course-videos', Course::first()));
