@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Foundation\Testing\LazilyRefreshDatabase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
