@@ -3,12 +3,9 @@
 use App\Models\Course;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Sequence;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Carbon;
 
 use function Pest\Laravel\get;
-
-uses(RefreshDatabase::class);
 
 it('con not be accessed by a guest', function () {
     // Act and Assert

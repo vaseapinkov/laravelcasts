@@ -2,11 +2,8 @@
 
 use App\Models\Course;
 use App\Models\User;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 
 use function Pest\Laravel\get;
-
-uses(RefreshDatabase::class);
 
 it('gives back successful response from home page', function () {
     // Act && Assert
