@@ -21,11 +21,8 @@ it('gives back successful response from details page', function () {
 });
 
 it('gives back successful response for dashboard page', function () {
-    // Arrange
-    $user = User::factory()->create();
-
     // Act && Assert
-    $this->actingAs($user);
+    loginAsUser();
     get(route('pages.dashboard'))
         ->assertOk();
 });
