@@ -2,6 +2,7 @@
 
 namespace App\Livewire;
 
+use App\Models\Video;
 use Illuminate\Contracts\View\View;
 use Livewire\Component;
 
