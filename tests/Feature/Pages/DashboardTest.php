@@ -76,3 +76,11 @@ it('includes link to product video', function () {
         ->assertSeeText('Watch Video')
         ->assertSee(route('pages.course-videos', Course::first()));
 });
+
+it('includes logout', function () {
+    loginAsUser();
+    get(route('pages.dashboard'))
+        ->assertOk()
+        ->assertSeeText('Log Out')
+        ->assertSee(route('logout'));
+});

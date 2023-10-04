@@ -5,7 +5,7 @@ use Illuminate\Support\Carbon;
 
 use function Pest\Laravel\get;
 
-test('it shows courses overview', function () {
+it('it shows courses overview', function () {
     // Arrange
     $firstCourse = Course::factory()->relased()->create();
     $secondCourse = Course::factory()->relased()->create();
@@ -22,7 +22,7 @@ test('it shows courses overview', function () {
     ]);
 });
 
-test('shows only released courses', function () {
+it('shows only released courses', function () {
     // Arrange
     $releasedCourse = Course::factory()->relased()->create();
     $notReleasedCourse = Course::factory()->create();
@@ -33,7 +33,7 @@ test('shows only released courses', function () {
         ->assertDontSeeText($notReleasedCourse->title);
 });
 
-test('it shows courses by release date', function () {
+it('it shows courses by release date', function () {
     // Arrange
     $releasedCourse = Course::factory()->relased(Carbon::yesterday())->create();
     $newestReleasedCourse = Course::factory()->relased()->create();
@@ -44,4 +44,20 @@ test('it shows courses by release date', function () {
             $newestReleasedCourse->title,
             $releasedCourse->title,
         ]);
+});
+
+it('includes login if not logged in', function () {
+    get(route('pages.home'))
+        ->assertOk()
+        ->assertSeeText('Log In')
+        ->assertSee(route('login'));
+});
+
+it('includes logout if logged in', function () {
+    loginAsUser();
+
+    get(route('pages.home'))
+        ->assertOk()
+        ->assertSee('Log Out')
+        ->assertSee(route('logout'));
 });
