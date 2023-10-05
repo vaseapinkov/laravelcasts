@@ -54,3 +54,40 @@ it('shows list of all course videos', function () {
             route('pages.course-videos', Video::where('title', 'Third Video')->first()),
         ]);
 });
+
+it('marks video as completed', function () {
+    $user = User::factory()->create();
+    $course = Course::factory()
+        ->has(Video::factory()->state(['title' => 'Course Video']))
+        ->create();
+
+    $user->courses()->attach($course);
+
+    expect($user->videos)->toHaveCount(0);
+
+    loginAsUser($user);
+    Livewire::test(VideoPlayer::class, ['video' => $course->videos()->first()])
+        ->call('markVideoAsCompleted');
+
+    $user->refresh();
+    expect($user->videos)->toHaveCount(1)->first()->title->toEqual('Course Video');
+});
+
+it('marks video as not completed', function () {
+    $user = User::factory()->create();
+    $course = Course::factory()
+        ->has(Video::factory())
+        ->create();
+
+    $user->courses()->attach($course);
+    $user->videos()->attach($course->videos()->first());
+
+    expect($user->videos)->toHaveCount(1);
+
+    loginAsUser($user);
+    Livewire::test(VideoPlayer::class, ['video' => $course->videos()->first()])
+        ->call('markVideoAsNotCompleted');
+
+    $user->refresh();
+    expect($user->videos)->toHaveCount(0);
+});
