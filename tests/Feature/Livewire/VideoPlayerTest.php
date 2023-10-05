@@ -6,26 +6,26 @@ use App\Models\Video;
 
 it('it shows details for a given video', function () {
     $course = Course::factory()
-        ->has(Video::factory()->state([
-            'title' => 'Video Title',
-            'description' => 'Video Description',
-            'duration' => 10,
-        ]))->create();
+        ->has(Video::factory())
+        ->create();
 
-    Livewire::test(VideoPlayer::class, ['video' => $course->videos->first()])
+    $video = $course->videos->first();
+
+    Livewire::test(VideoPlayer::class, ['video' => $video])
         ->assertSeeText([
-            'Video Title',
-            'Video Description',
-            '10 min',
+            $video->title,
+            $video->description,
+            $video->getReadableDuration(),
         ]);
 });
 
 it('it shows given video', function () {
     $course = Course::factory()
-        ->has(Video::factory()->state([
-            'vimeo_id' => 'vimeo-id',
-        ]))->create();
+        ->has(Video::factory())
+        ->create();
 
-    Livewire::test(VideoPlayer::class, ['video' => $course->videos->first()])
-        ->assertSee('<iframe src="https://player.vimeo.com/video/vimeo-id"', false);
+    $video = $course->videos->first();
+
+    Livewire::test(VideoPlayer::class, ['video' => $video])
+        ->assertSeeHtml('<iframe src="https://player.vimeo.com/video/'.$video->vimeo_id.'"');
 });
