@@ -41,8 +41,8 @@ it('shows list of all course videos', function () {
     Livewire::test(VideoPlayer::class, ['video' => $course->videos()->first()])
         ->assertSeeText(...$course->videos->pluck('title')->toArray())
         ->assertSeeHtml([
-            route('pages.course-videos', $course->videos[1]),
-            route('pages.course-videos', $course->videos[2]),
+            route('pages.course-videos', [$course, $course->videos[1]]),
+            route('pages.course-videos', [$course, $course->videos[2]]),
         ]);
 });
 
@@ -50,7 +50,7 @@ it('does not include route for current video', function () {
     $course = createCourseAndVideos();
 
     Livewire::test(VideoPlayer::class, ['video' => $course->videos()->first()])
-        ->assertDontSeeHtml(route('pages.course-videos', $course->videos[0]));
+        ->assertDontSeeHtml(route('pages.course-videos', [$course, $course->videos[0]]));
 });
 
 it('marks video as completed', function () {
