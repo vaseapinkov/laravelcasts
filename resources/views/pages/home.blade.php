@@ -1,7 +1,7 @@
 @guest()
     <a href="{{route('login')}}">Log In</a>
 @else
-    <form action="{{route('logout')}}">
+    <form method="POST" action="{{route('logout')}}">
         @csrf
         <button type="submit">Log Out</button>
     </form>
