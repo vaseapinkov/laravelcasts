@@ -75,3 +75,9 @@ it('includes courses links', function () {
             route('pages.course-details', $thirdCourse),
         ]);
 });
+
+it('includes title', function () {
+    $expectedTitle = config('app.name').' - Home';
+
+    get(route('pages.home'))->assertSee("<title>$expectedTitle</title>", false);
+});
