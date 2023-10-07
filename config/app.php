@@ -1,5 +1,6 @@
 <?php
 
+use App\Services\Twitter\TweeterFacade;
 use Illuminate\Support\Facades\Facade;
 use Illuminate\Support\ServiceProvider;
 
@@ -170,6 +171,7 @@ return [
         App\Providers\RouteServiceProvider::class,
         App\Providers\FortifyServiceProvider::class,
         App\Providers\JetstreamServiceProvider::class,
+        App\Providers\TwitterServiceProvider::class,
     ])->toArray(),
 
     /*
@@ -184,7 +186,7 @@ return [
     */
 
     'aliases' => Facade::defaultAliases()->merge([
-        // 'Example' => App\Facades\Example::class,
+        'Twitter' => TweeterFacade::class,
     ])->toArray(),
 
 ];
